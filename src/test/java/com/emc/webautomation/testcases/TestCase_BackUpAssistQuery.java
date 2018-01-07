@@ -18,8 +18,9 @@ import com.emc.webautomation.action.QueryAction;
 import com.emc.webautomation.commonUtil.DriverUtils;
 import com.emc.webautomation.otherobject.ClientInformation;
 
+import java.util.Random;
 /**
- * 
+ * the test case is to input the usr info and check  result
  * @author lis26
  *
  */
@@ -29,15 +30,18 @@ public class TestCase_BackUpAssistQuery extends TestBase {
 	public String url="https://www.backupassist.com/reseller/eoi.php";
 	public BrowserType browser=BrowserType.FIREFOX;
 	public String queryType="MSP";
+	Random random=new Random(100);
+	public String  newemail="e".concat(String.valueOf(System.currentTimeMillis()/1000));
 	
 	//input the users from data provider
 	 @DataProvider(name="SearchProvider")
 	    public Object[][] getDataFromDataprovider(){
 	    return new Object[][] 
 	    	{
-	    	    { "NewUser", new ClientInformation("f1","l1","company1","f1234.l1@gmail.com","0415629426")},
+	    	    { "NewUser", new ClientInformation("f1","l1","company1",newemail.concat("@gmail.com"),"0415629426")},
 		        { "RegisteredUser", new ClientInformation("f2","l2","company1","f123.l1@gmail.com","0415629426")},
-	            
+		        { "InvalidUser", new ClientInformation("f2","l2","company1","f123.l1","0415629426")},
+		  	        
 	         };
 
 	    }	
@@ -75,10 +79,11 @@ public class TestCase_BackUpAssistQuery extends TestBase {
     switch(userType) {
        case  "NewUser":
     	   Reporter.log("For New User Test");
-    	   expected_text=client.getEmail();
+    	   expected_text="Thanks for registering";//client.getEmail();
      	   actionResult=queryAction.checkNewUser(expected_text);
     	   Assert.assertEquals(actionResult, true);
-        	     
+    	   queryAction.navigateToHomePage(url);
+    	        	     
        break;
        case "RegisteredUser":
      	   Reporter.log("For Registered User Test");
@@ -89,8 +94,15 @@ public class TestCase_BackUpAssistQuery extends TestBase {
     	   break;
     	   
        case "InvalidUser":
-    	  // queryAction.submitFormAndVerify(client);
+	   Reporter.log("For Invalid User Test");
+     	   
+    	   expected_text="The following fields are invalid";
+    	   actionResult=queryAction.checkInvalidUser(expected_text);
+    	   Assert.assertEquals(actionResult, true);
     	   break;
+    	  // queryAction.submitFormAndVerify(client);
+    	 default :
+    		 ;
     
     }
     

@@ -4,17 +4,18 @@
 <test name="Test Under CHROME"  verbose="10">
     <parameter name="url" value="https://www.backupassist.com/reseller/eoi.php"/>
      <parameter name="browserType" value="CHROME"/>
-     <parameter  name="QueryType"   value="Silver" />
+     <parameter  name="QueryType"   value="Gold" />
      <classes>
       <class name="com.emc.webautomation.testcases.TestCase_BackUpAssistQuery"/>
     </classes>
   </test>
-<!-- test name="Test Under IE"  verbose="10">
+<!--  >test name="Test Under IE"  verbose="10">
     <parameter name="url" value="https://www.backupassist.com/reseller/eoi.php"/>
      <parameter name="browserType" value="IE"/>
      <classes>
       <class name="com.emc.webautomation.testcases.TestCase_BackUpAssistQuery"/>
     </classes>
   </test -->
+  
   
 </suite>
