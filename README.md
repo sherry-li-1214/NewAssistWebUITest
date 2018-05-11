@@ -1,5 +1,5 @@
-# BackUpAssistTest
-For BackupAssist testing
+# NewAssitWebUITest
+For web GUI  testing
 
 Description: This is the project was used to test webUI products(non-Angular).The framework runs  Selenium(POM)+Maven+JAVA+TestNG+log4j. 
   
